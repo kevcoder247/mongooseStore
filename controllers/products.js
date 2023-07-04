@@ -9,8 +9,18 @@ const Product = require('../models/product')
 //                      Routes
 //=======================================================
 //INDEX
-router.get('/', (req, res) => {
-  res.render('index.ejs')
+router.get('/', async (req, res) => {
+  try{
+    Product.find({})
+    .then(allProducts => {
+      res.render('index.ejs', {
+        products: allProducts
+      })
+    })
+  }catch (err){
+    console.log(error);
+    res.status(500).send('Error in occured in the index Route')
+  }
 })
 
 //NEW
