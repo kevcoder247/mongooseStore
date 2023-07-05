@@ -7,9 +7,17 @@
 </head>
 <body>
   <a href="/mongoose">BackHome</a>
+
   <h1>show page</h1>
+
   <p>Name: <%= products.name %></p>
-  <p>Name: <%= products.description %></p>
+
+  <p>Description: <%= products.description %></p>
+
+  <p>Qty: <%=products.qty%></p>
+
+  <p>Price: $<%=products.price%></p>
   
+  <img src="<%=products.img%>" alt="">
 </body>
 </html>
