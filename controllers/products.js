@@ -48,6 +48,17 @@ router.get('/new', (req, res) => {
   }
 })
 
+//DELETE
+router.delete('/:id', async (req, res) => {
+  try{
+    await Product.findByIdAndRemove(req.params.id);
+    res.redirect('/mongoose');
+  }catch (err){
+    console.log(err);
+    res.status(500).send('An error occured in our delete route');
+  }
+})
+
 //CREATE
 router.post('/', async(req, res) => {
   try{

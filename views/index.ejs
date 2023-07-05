@@ -15,6 +15,10 @@
         <li>
           <a href="/mongoose/<%=product._id%>">
             <%= product.name %>
+
+            <form action="/mongoose/<%=product._id%>?_method=DELETE" method="POST">
+              <input type="submit" value="DELETE">
+            </form>
           </a>
         </li>
       <% })%>

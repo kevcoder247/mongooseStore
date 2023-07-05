@@ -5,7 +5,8 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 const mongoose = require('mongoose');
-const productController = require('./controllers/products')
+const productController = require('./controllers/products');
+const methodOverride = require('method-override');
 
 //=====================================
 //        Database Connection
@@ -30,6 +31,7 @@ app.use(express.urlencoded({extended: true }));
 //css
 app.use(express.static(__dirname + '/public'));
 
+app.use(methodOverride('_method'));
 
 //===========================================================
 //        Controllers- Technically just middleware
