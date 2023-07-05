@@ -3,11 +3,26 @@
 //=======================================================
 const express = require('express');
 const router = express.Router();
-const Product = require('../models/product')
+const Product = require('../models/product');
+const productSeed = require('../models/productSeed');
 
 //=======================================================
 //                      Routes
 //=======================================================
+//SEED DATA
+router.get('/seed', async (req, res) => {
+  try{
+    await Product.deleteMany({});
+
+    await Product.insertMany(productSeed);
+    
+    res.redirect('/mongoose');
+  }catch (err) {
+    console.log(err);
+    res.status(500).send('Erro seeding the database');
+  }
+})
+
 //INDEX
 router.get('/', async (req, res) => {
   try{

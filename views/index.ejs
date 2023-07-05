@@ -9,12 +9,17 @@
   <a href="/mongoose/new">Add New Product</a>
   <h1>All Products</h1>
 
-  <ul>
-    <li>
+ <ul>
+  
+    <a href="#">
       <% products.forEach(product => { %>
-        <%= product.name %>
+        <li>
+          <%= product.name %>
+        </li>
       <% })%>
-    </li>
-  </ul>
+    </a>
+    
+  </li>
+ </ul>
 </body>
 </html>
