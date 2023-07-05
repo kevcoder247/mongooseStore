@@ -27,6 +27,9 @@ db.on('disconnected', () => console.log('mongo disconnected'));
 //======================================================
 app.use(express.urlencoded({extended: true }));
 
+//css
+app.use(express.static(__dirname + '/public'));
+
 
 //===========================================================
 //        Controllers- Technically just middleware
