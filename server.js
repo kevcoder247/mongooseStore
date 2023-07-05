@@ -31,6 +31,9 @@ app.use(express.urlencoded({extended: true }));
 //css
 app.use(express.static(__dirname + '/public'));
 
+//js static files
+app.use(express.static('public'));
+
 app.use(methodOverride('_method'));
 
 //===========================================================

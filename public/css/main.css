@@ -1,7 +1,43 @@
 body{
   background-color: grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
 }
 
+h1{
+  text-align: center;
+}
+
+#container{
+  background-color: aquamarine;
+  width: 80%;
+  margin: 0 auto;
+}
+a{
+  text-decoration: none;
+}
+.all-products-link{
+  text-align: center;
+}
 ul{
   font-size: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+li{
+  border: 2px solid black;
+  margin: 10px;
+}
+
+.product-name{
+  text-align: center;
+}
+
+img{
+  width: 200px;
 }

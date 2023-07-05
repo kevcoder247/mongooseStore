@@ -106,7 +106,31 @@ router.get('/:id', async (req, res) => {
     console.log(err);
     res.status(500).send('An error occurred in our show route');
   }
-})
+});
+
+
+//BUY BUTTON
+router.put('/:id/buy', async (req, res) => {
+  try {
+    const foundProduct = await Product.findById(req.params.id);
+    
+    if(foundProduct.qty <= 0){
+      foundProduct.qty = 0;
+    }else{
+      foundProduct.qty -= 1;
+    }
+
+
+    await foundProduct.save();
+    
+    res.json({ qty: foundProduct.qty });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('An error occurred while updating the quantity');
+  }
+ 
+});
+
 
 
 module.exports = router;
