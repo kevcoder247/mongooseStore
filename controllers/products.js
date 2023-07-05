@@ -46,6 +46,17 @@ router.get('/new', (req, res) => {
     console.log(err);
     res.status(500).send('An error occured in the new Route')
   }
+});
+
+//UPDATE
+router.put('/:id', async (req, res) => {
+  try{
+    const foundProduct = await Product.findByIdAndUpdate(req.params.id, req.body, {new: true})
+    res.redirect(`/mongoose/${req.params.id}`);
+  }catch (err){
+    console.log(err);
+    res.status(500).send('An error occured in our update route');
+  }
 })
 
 //DELETE
@@ -69,6 +80,19 @@ router.post('/', async(req, res) => {
     res.status(500).send('An Error occured in our create route')
   }
   console.log('new product:', req.body)
+});
+
+//EDIT
+router.get('/:id/edit', async(req, res) => {
+  try{
+    const allProducts = await Product.findById(req.params.id);
+    res.render('edit.ejs', {
+      Products: allProducts
+    })
+  }catch (err){
+    console.log(err);
+    res.status(500).send('An error occurred in our show route')
+  }
 })
 
 //SHOW
