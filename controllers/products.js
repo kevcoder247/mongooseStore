@@ -15,7 +15,7 @@ router.get('/seed', async (req, res) => {
     await Product.deleteMany({});
 
     await Product.insertMany(productSeed);
-    
+
     res.redirect('/mongoose');
   }catch (err) {
     console.log(err);
@@ -58,6 +58,19 @@ router.post('/', async(req, res) => {
     res.status(500).send('An Error occured in our create route')
   }
   console.log('new product:', req.body)
+})
+
+//SHOW
+router.get('/:id', async (req, res) => { 
+  try{
+    const foundProduct = await Product.findById(req.params.id);
+    res.render('show.ejs', {
+      products: foundProduct,
+    })
+  }catch(err){
+    console.log(err);
+    res.status(500).send('An error occurred in our show route');
+  }
 })
 
 

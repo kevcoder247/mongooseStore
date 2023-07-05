@@ -11,16 +11,14 @@
   <h1>All Products</h1>
 
  <ul>
-  
-    <a href="#">
-      <% products.forEach(product => { %>
+  <% products.forEach(product => { %>
         <li>
-          <%= product.name %>
+          <a href="/mongoose/<%=product._id%>">
+            <%= product.name %>
+          </a>
         </li>
       <% })%>
-    </a>
+  </ul>
 
-  </li>
- </ul>
 </body>
 </html>
