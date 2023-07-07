@@ -8,8 +8,8 @@ body{
   margin: 0;
 }
 
-#container{
-  background-color: aquamarine;
+.show-card{
+  background-color: rgb(216, 240, 240);
 }
 
 ul{
@@ -35,3 +35,8 @@ button{
   font-size: 20px;
   border-radius: 5px;
 }
+
+.outOfStock{
+  color: red;
+}
+

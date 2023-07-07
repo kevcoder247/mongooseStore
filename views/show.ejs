@@ -3,49 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
   <link rel="stylesheet" href="/css/show.css">
+
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-    
-    const buyButton = document.getElementById('buy-button');
-    const productId = buyButton.getAttribute('data-product-id');
-    const quantityElement = document.getElementById('remaining-quantity');
-
-    buyButton.addEventListener('click', function() {
-     
-      // Send an AJAX request to decrement the quantity
-      fetch(`/mongoose/${productId}/buy`, {
-        method: 'PUT'
-      })
-      .then(response => response.json())
-      .then(data => {
-        
-        // Update the quantity on the page
+      const buyButton = document.getElementById('buy-button');
+      const productId = buyButton.getAttribute('data-product-id');
+      const quantityElement = document.getElementById('remaining-quantity');
+  
+      function outOfStock() {
+        quantityElement.innerHTML = 'OUT OF STOCK';
+        quantityElement.style.color = 'red';
+      }
+  
+      function updateQuantity(data) {
         quantityElement.textContent = `Remaining: ${data.qty}`;
-      })
-      .catch(error => console.log(error));
+  
+        if (data.qty === 0) {
+          buyButton.style.display = 'none';
+          outOfStock();
+        }
+      }
+  
+      // Send an AJAX request to get the initial quantity value
+      fetch(`/mongoose/${productId}`)
+        .then(response => response.json())
+        .then(data => {
+          updateQuantity(data);
+        })
+        .catch(error => console.log(error));
+  
+      buyButton.addEventListener('click', function() {
+        fetch(`/mongoose/${productId}/buy`, {
+          method: 'PUT'
+        })
+        .then(response => response.json())
+        .then(data => {
+          updateQuantity(data);
+        })
+        .catch(error => console.log(error));
+      });
     });
-  });
-
   </script>
+  
   <title>Show Page</title>
 </head>
 <body>
   <a href="/mongoose">BackHome</a>
 
   <h1 class="product-name-show-page"><%= products.name %></h1>
+  <div class="show-card">
+    
+    <img src="<%=products.img%>" alt="">
+  
+    <p class="show-page-text"><%= products.description %></p>
+  
+    <p class="show-page-text">Price: $<%=products.price%></p>
 
-  <img src="<%=products.img%>" alt="">
+    <% if (products.qty === 0) { %>
+      <p id="remaining-quantity" class="show-page-text outOfStock">OUT OF STOCK</p>
+    <% } else { %>
+      <p id="remaining-quantity" class="show-page-text">Remaining: <%= products.qty %></p>
 
-  <p class="show-page-text"><%= products.description %></p>
+      <!-- buy button -->
+      <button id="buy-button" data-product-id="<%= products._id %>">Buy</button>
 
-  <p class="show-page-text">Price: $<%=products.price%></p>
-
-  <p id="remaining-quantity" class="show-page-text">Remaining: <%=products.qty%></p>
-
-  <!-- buy button -->
- <button id="buy-button" data-product-id="<%= products._id %>">Buy</button>
+    <% } %>
+    
+    <a href="/mongoose/<%=products._id%>/edit">Edit</a>
+  </div>
 
   
   <ul>
@@ -54,12 +80,8 @@
         <input type="submit" value="DELETE">
       </form>
     </li>
-    <li>
-      <a href="/mongoose/<%=products._id%>/edit">Edit</a>
-    </li>
   </ul>
 
 
- 
 </body>
 </html>
